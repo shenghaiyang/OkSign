@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">OkSign</string>
+  <string name="library">Library</string>
+  <string name="about">About</string>
+  <string name="github">https://github.com/shenghaiyang/oksign</string>
+  <string name="share_sign">share sign</string>
+  <string name="get_signature">Get Signature</string>
+  <string name="please_input_your_package_name">Please input your package name.</string>
+</resources>
