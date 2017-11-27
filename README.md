@@ -1,4 +1,4 @@
-# oksign
+# OkSign
 
 Get installed application signature.
 
