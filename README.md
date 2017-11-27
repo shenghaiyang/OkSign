@@ -2,7 +2,7 @@
 
 Get installed application signature.
 
-[download apk](https://github.com/shenghaiyang/OkSign/archive/OkSign-v1.0.0.apk)
+[download apk](https://github.com/shenghaiyang/OkSign/releases/download/v1.0.0/OkSign-v1.0.0.apk)
 
 ## License
 
