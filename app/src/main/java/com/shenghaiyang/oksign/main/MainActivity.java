@@ -23,15 +23,29 @@ import okio.ByteString;
 
 public final class MainActivity extends AppCompatActivity {
 
+  private static final String TAG_PACKAGE = "TAG_PACKAGE";
+  private static final String TAG_SIGNATURES = "TAG_SIGNATURES";
+
   @BindView(R.id.main_package) EditText packageView;
   @BindView(R.id.main_signatures) RecyclerView signaturesView;
 
-  private final List<String> signatures = new ArrayList<>();
+  private final ArrayList<String> signatures = new ArrayList<>();
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main_activity);
     ButterKnife.bind(this);
+    if (savedInstanceState != null) {
+      String packageName = savedInstanceState.getString(TAG_PACKAGE);
+      if (packageName != null) {
+        packageView.setText(packageName);
+      }
+      List<String> signs = savedInstanceState.getStringArrayList(TAG_SIGNATURES);
+      if (signs != null) {
+        signatures.clear();
+        signatures.addAll(signs);
+      }
+    }
     signaturesView.setLayoutManager(new LinearLayoutManager(this));
     signaturesView.setAdapter(new SignatureAdapter(getLayoutInflater(), signatures));
   }
@@ -59,7 +73,7 @@ public final class MainActivity extends AppCompatActivity {
     signatures.clear();
     for (Signature sign : signs) {
       ByteString byteString = ByteString.of(sign.toByteArray());
-      signatures.add(byteString.md5().md5().hex());
+      signatures.add(byteString.md5().hex());
     }
     signaturesView.getAdapter().notifyDataSetChanged();
   }
@@ -79,6 +93,25 @@ public final class MainActivity extends AppCompatActivity {
         return true;
       default:
         return super.onOptionsItemSelected(item);
+    }
+  }
+
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    String packageName = packageView.getText().toString().trim();
+    if (!packageName.isEmpty()) {
+      outState.putString(TAG_PACKAGE, packageName);
+    }
+    if (!signatures.isEmpty()) {
+      outState.putStringArrayList(TAG_SIGNATURES, signatures);
+    }
+  }
+
+  @Override protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    super.onRestoreInstanceState(savedInstanceState);
+    String packageName = savedInstanceState.getString(TAG_PACKAGE);
+    if (packageName != null && !packageName.isEmpty()) {
+      packageView.setText(packageName);
     }
   }
 }
