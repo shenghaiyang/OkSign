@@ -2,6 +2,8 @@
 
 Get installed application signature.
 
+[download apk](https://github.com/shenghaiyang/OkSign/archive/OkSign-v1.0.0.apk)
+
 ## License
 
 ```text
