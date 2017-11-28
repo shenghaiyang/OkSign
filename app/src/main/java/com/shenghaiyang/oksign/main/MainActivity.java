@@ -10,7 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,6 +20,7 @@ import com.shenghaiyang.oksign.R;
 import com.shenghaiyang.oksign.about.AboutActivity;
 import com.shenghaiyang.oksign.library.LibraryActivity;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import okio.ByteString;
 
@@ -26,7 +29,7 @@ public final class MainActivity extends AppCompatActivity {
   private static final String TAG_PACKAGE = "TAG_PACKAGE";
   private static final String TAG_SIGNATURES = "TAG_SIGNATURES";
 
-  @BindView(R.id.main_package) EditText packageView;
+  @BindView(R.id.main_package) AutoCompleteTextView packageView;
   @BindView(R.id.main_signatures) RecyclerView signaturesView;
 
   private final ArrayList<String> signatures = new ArrayList<>();
@@ -35,6 +38,13 @@ public final class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main_activity);
     ButterKnife.bind(this);
+    packageView.setAdapter(
+        new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, installedPackages()));
+    packageView.setOnItemClickListener((parent, view, position, id) -> {
+      String packageName = parent.getItemAtPosition(position).toString();
+      Toast.makeText(MainActivity.this, packageName, Toast.LENGTH_SHORT).show();
+      updateSignatures(packageName);
+    });
     if (savedInstanceState != null) {
       String packageName = savedInstanceState.getString(TAG_PACKAGE);
       if (packageName != null) {
@@ -50,12 +60,27 @@ public final class MainActivity extends AppCompatActivity {
     signaturesView.setAdapter(new SignatureAdapter(getLayoutInflater(), signatures));
   }
 
+  private String[] installedPackages() {
+    List<PackageInfo> installedPackages =
+        getPackageManager().getInstalledPackages(PackageManager.GET_SIGNATURES);
+    String[] packages = new String[installedPackages.size()];
+    for (int i = 0; i < installedPackages.size(); i++) {
+      packages[i] = installedPackages.get(i).packageName;
+    }
+    Arrays.sort(packages);
+    return packages;
+  }
+
   @OnClick(R.id.main_find) void getSignature() {
     String packageName = packageView.getText().toString();
     if (packageName.trim().isEmpty()) {
       packageView.setError("Package cannot be empty.");
       return;
     }
+    updateSignatures(packageName);
+  }
+
+  private void updateSignatures(String packageName) {
     List<PackageInfo> list =
         getPackageManager().getInstalledPackages(PackageManager.GET_SIGNATURES);
     PackageInfo packageInfo = null;
