@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -42,7 +41,6 @@ public final class MainActivity extends AppCompatActivity {
         new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, installedPackages()));
     packageView.setOnItemClickListener((parent, view, position, id) -> {
       String packageName = parent.getItemAtPosition(position).toString();
-      Toast.makeText(MainActivity.this, packageName, Toast.LENGTH_SHORT).show();
       updateSignatures(packageName);
     });
     if (savedInstanceState != null) {
