@@ -7,37 +7,36 @@
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     app:cardUseCompatPadding="true"
-    app:contentPadding="8dp"
-    >
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      >
-    <TextView
-        android:id="@+id/library_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        />
-    <TextView
-        android:id="@+id/library_license_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        />
-    <HorizontalScrollView
+    app:contentPadding="8dp">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
-      <TextView
-          android:id="@+id/library_license_content"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textSize="12sp"
-          />
-    </HorizontalScrollView>
-  </LinearLayout>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/license_name_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/license_content_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp" />
+        </HorizontalScrollView>
+    </LinearLayout>
 </android.support.v7.widget.CardView>
