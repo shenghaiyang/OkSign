@@ -3,8 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
-apply<LibraryPlugin>()
-
 android {
     namespace = "com.shenghaiyang.oksign"
     compileSdk = libs.versions.compileSdk.get().toInt()
