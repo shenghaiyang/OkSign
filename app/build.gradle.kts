@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -82,10 +83,14 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.viewmodel.compose)
     implementation(libs.navigation.compose)
+    implementation(libs.profileinstaller)
 
     implementation(libs.accompanist.systemuicontroller)
 
     implementation(libs.okio)
+    implementation(libs.moshi)
+    ksp(libs.moshi.codegen)
+
 
     debugImplementation(libs.leakcanary.android)
 
