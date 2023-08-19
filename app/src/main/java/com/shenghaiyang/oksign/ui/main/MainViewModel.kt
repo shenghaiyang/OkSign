@@ -43,7 +43,6 @@ class MainViewModel constructor(
                 .map { packageInfo ->
                     val signatures = packageInfo.signatures.map { signature ->
                         val bs = signature.toByteArray().toByteString()
-                        bs.md5().hex()
                         SignatureInfo(
                             md5 = bs.md5().hex(),
                             sha1 = bs.sha1().hex(),

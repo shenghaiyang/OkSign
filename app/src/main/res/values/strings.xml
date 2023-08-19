@@ -3,5 +3,5 @@
     <string name="library">Library</string>
     <string name="about">About</string>
     <string name="share_sign">share sign</string>
-    <string name="search_hint">Please input your app name or package name.</string>
+    <string name="search_hint">Search app or package name</string>
 </resources>
